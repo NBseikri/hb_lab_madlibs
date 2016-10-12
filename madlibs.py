@@ -1,4 +1,4 @@
-from random import choice
+from random import choice, sample
 
 from flask import Flask, render_template, request
 
@@ -14,9 +14,9 @@ AWESOMENESS = [
 
 @app.route('/')
 def start_here():
-    """Homepage."""
+    """Home page."""
 
-    return "Hi! This is the home page."
+    return "<!doctype html><html><a href='/hello'>Hi! This is the home page.</a><html>"
 
 
 @app.route('/hello')
@@ -31,12 +31,16 @@ def greet_person():
     """Greet user."""
 
     player = request.args.get("person")
+    ans_compliments = request.args.get("compliments")
 
-    compliment = choice(AWESOMENESS)
+    if ans_compliments:
+        rand_compliment = sample(AWESOMENESS, 3)
+    else:
+        rand_compliment = []
 
     return render_template("compliment.html",
                            person=player,
-                           compliment=compliment)
+                           compliments=rand_compliment)
 
 @app.route('/game')
 def show_madlib_form():

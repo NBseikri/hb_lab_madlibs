@@ -1,15 +1,25 @@
 <!doctype html>
 <html>
 <head>
-  <title>A Compliment</title>
+    <title>A Compliment</title>
 </head>
+
 <body>
-    Hi {{ person }}! I think you're {{ compliment }}!
-<form action="/game">
-    Do you want to play a game?<br>
-    <input type="radio" name="question" value="sure_fine_whatever">Sure, fine, whatever.<br>
-    <input type="radio" name="question" value="no_way">No way!<br>
-    <input type="submit">
-</form>
+    Hi {{ person }}! 
+    {% if compliments %}
+        I think you're:
+        <ul>
+            {% for compliment in compliments %}
+                <li>{{ compliment }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="/game">
+        Do you want to play a game?<br>
+        <input type="radio" name="question" value="sure_fine_whatever">Sure, fine, whatever.<br>
+        <input type="radio" name="question" value="no_way">No way!<br>
+        <input type="submit">
+    </form>
 </body>
+
 </html>
